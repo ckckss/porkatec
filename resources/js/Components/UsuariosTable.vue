@@ -205,7 +205,7 @@ export default {
 
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/api/usuarios`);
+                const response = await axios.get(`http://porkatec.apallares.dawmor.cloud/api/usuarios`);
                 users.value = response.data;
                 console.log(users.value[0]);
             } catch (error) {

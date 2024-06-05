@@ -263,7 +263,7 @@ export default {
                     console.log('Cubrición creada con éxito');
 
                     // Actualizar la lista de cubriciones
-                    const updatedResponse = await axios.get(`http://localhost:8000/api/cubriciones/${this.idficha}`);
+                    const updatedResponse = await axios.get(`http://porkatec.apallares.dawmor.cloud/api/cubriciones/${this.idficha}`);
                     this.fichas = updatedResponse.data;
 
                 } else {
@@ -294,7 +294,7 @@ export default {
         watchEffect(() => {
             const fetchData = async () => {
                 try {
-                    const response = await axios.get(`http://localhost:8000/api/cubriciones/${idficha.value}`);
+                    const response = await axios.get(`http://porkatec.apallares.dawmor.cloud/api/cubriciones/${idficha.value}`);
                     fichas.value = response.data;
                     console.log(fichas.value);
                 } catch (error) {

@@ -41,7 +41,7 @@ import html2canvas from 'html2canvas';
 const printCharts = async () => {
    var data = {}
    try {
-      const response = await fetch("http://localhost:8000/api/cubriciones"); // Correct usage of fetch and await
+      const response = await fetch("http://porkatec.apallares.dawmor.cloud/api/cubriciones"); // Correct usage of fetch and await
       if (!response.ok) {
          throw new Error('Network response was not ok ' + response.statusText);
       }

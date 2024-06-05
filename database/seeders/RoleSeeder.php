@@ -35,7 +35,7 @@ class RoleSeeder extends Seeder
         $permiso_update_nave = Permission::create(['name' => 'update_nave']);
         $permiso_delete_nave = Permission::create(['name' => 'delete_nave']);
 
-        $permiso_admin_bypass = Permission::create(['name' => 'delete_nave']);
+        $permiso_admin_bypass = Permission::create(['name' => 'admin_bypass']);
 
         $permisos_admin = [
             $permiso_create_cerda, $permiso_read_cerda, $permiso_update_cerda, $permiso_delete_cerda,

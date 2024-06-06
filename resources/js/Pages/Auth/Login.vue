@@ -88,9 +88,6 @@ const submit = () => {
                         </Link>
                     </div>
                     <div>
-                        <Link v-if="canResetPassword" :href="route('password.request')" class="text-sm text-green-400 hover:text-green-200 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                            ¿Has olvidado tu contraseña?
-                        </Link>
                         <button class="ml-4 bg-green-300 rounded-md shadow-sm hover:bg-green-400 hover:border-black border-gray-400 border px-4 inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                             Login
                         </button>

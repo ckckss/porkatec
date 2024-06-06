@@ -129,7 +129,7 @@ export default {
 
       const fetchData = async () => {
          try {
-            const response = await axios.get('http://porkatec.apallares.dawmor.cloud/api/medicamentos');
+            const response = await axios.get('/api/medicamentos');
             medicamentos.value = response.data;
          } catch (error) {
             console.error('Error fetching data:', error);
@@ -138,7 +138,7 @@ export default {
 
       const createMedicamento = async () => {
          try {
-            await axios.post('http://porkatec.apallares.dawmor.cloud/api/medicamentos/', {
+            await axios.post('/api/medicamentos/', {
                nombre: newMedName.value,
                dosis: newMedDosis.value
             });
@@ -160,7 +160,7 @@ export default {
 
       const updateMedicamento = async () => {
          try {
-            await axios.put(`http://porkatec.apallares.dawmor.cloud/api/medicamentos/${editMedId.value}`, {
+            await axios.put(`/api/medicamentos/${editMedId.value}`, {
                nombre: editMedName.value,
                dosis: editMedDosis.value
             });
@@ -175,7 +175,7 @@ export default {
 
       const deleteMedicamento = async (id) => {
          try {
-            await axios.delete(`http://porkatec.apallares.dawmor.cloud/api/medicamentos/${id}`);
+            await axios.delete(`/api/medicamentos/${id}`);
             fetchData();
          } catch (error) {
             console.error('Error deleting nave:', error);

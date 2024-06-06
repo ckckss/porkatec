@@ -234,10 +234,10 @@ export default {
 
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://porkatec.apallares.dawmor.cloud/api/cerdas`);
+                const response = await axios.get(`/api/cerdas`);
                 cerdas.value = response.data;
 
-                const navesResponse = await axios.get(`http://porkatec.apallares.dawmor.cloud/api/naves`);
+                const navesResponse = await axios.get(`/api/naves`);
                 naves.value = navesResponse.data;
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -352,7 +352,7 @@ export default {
                 if (response.ok) {
                     console.log('Cerda creado con éxito');
                     this.closeCreateModal();
-                    const response = await axios.get(`http://porkatec.apallares.dawmor.cloud/api/cerdas`);
+                    const response = await axios.get(`/api/cerdas`);
                     this.cerdas = response.data;
                 } else {
                     console.error('Error al crear cerda');

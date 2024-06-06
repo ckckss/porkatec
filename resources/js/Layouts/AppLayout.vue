@@ -29,6 +29,7 @@ const logout = () => {
 
 <template>
     <div>
+
         <Head :title="title" />
         <div class="min-h-screen bg-gray-700">
             <nav class="bg-green-300 border-b border-gray-700">
@@ -39,16 +40,18 @@ const logout = () => {
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
                                 <Link :href="route('home')">
-                                    <img class="block h-16 w-auto" src="/assets/logo.png">
+                                <img class="block h-16 w-auto" src="/assets/logo.png">
                                 </Link>
                             </div>
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink v-if="$page.props.user.permissions.includes('admin_bypass')" :href="route('admin')" :active="route().current('admin')">
+                                <NavLink v-if="$page.props.user.permissions.includes('admin_bypass')"
+                                    :href="route('admin')" :active="route().current('admin')">
                                     ADMINISTRADOR
                                 </NavLink>
-                                <NavLink v-if="$page.props.user.permissions.includes('read_user')" :href="route('usuarios')" :active="route().current('usuarios')">
+                                <NavLink v-if="$page.props.user.permissions.includes('read_user')"
+                                    :href="route('usuarios')" :active="route().current('usuarios')">
                                     USUARIOS
                                 </NavLink>
                                 <NavLink :href="route('cerdas')" :active="route().current('cerdas')">
@@ -64,9 +67,13 @@ const logout = () => {
                                     LECTOR NFC
                                 </NavLink>
                             </div>
-                            
+
                         </div>
-                        <div class="my-auto p-2 bg-green-400 text-gray-600 border-green-400 rounded-xl"><p>Nivel de acceso: <b class="text-xl">{{ $page.props.user.roles[0] }}</b></p></div>
+                        <div class="my-auto p-2 bg-green-400 text-gray-600 border-green-400 rounded-xl access-level">
+                            <p>Nivel de acceso: <b class="text-xl">{{ $page.props.user.roles[0] }}</b></p>
+                        </div>
+
+
                         <!-- Settings Dropdown -->
                         <div class="hidden sm:flex sm:items-center">
                             <div class="relative">
@@ -93,9 +100,9 @@ const logout = () => {
                                             </button>
                                         </span>
                                     </template>
-                                    
+
                                     <template #content>
-                                        
+
                                         <!-- Account Management -->
                                         <DropdownLink :href="route('profile.show')">
                                             Perfil
@@ -136,12 +143,14 @@ const logout = () => {
 
                 <!-- Responsive Navigation Menu -->
                 <div :class="{ 'block': showingNavigationDropdown, 'hidden': !showingNavigationDropdown }"
-                    class="sm:hidden">
+                    class="">
                     <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink v-if="$page.props.user.permissions.includes('admin_bypass')" :href="route('admin')" :active="route().current('admin')">
+                        <ResponsiveNavLink v-if="$page.props.user.permissions.includes('admin_bypass')"
+                            :href="route('admin')" :active="route().current('admin')">
                             ADMINISTRADOR
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink v-if="$page.props.user.permissions.includes('read_user')" :href="route('usuarios')" :active="route().current('usuarios')">
+                        <ResponsiveNavLink v-if="$page.props.user.permissions.includes('read_user')"
+                            :href="route('usuarios')" :active="route().current('usuarios')">
                             USUARIOS
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('cerdas')" :active="route().current('cerdas')">
@@ -190,3 +199,17 @@ const logout = () => {
         </div>
     </div>
 </template>
+<style>
+/* Estilo para ocultar el nivel de acceso en pantallas menores a 1200px */
+@media (max-width: 1200px) {
+    .access-level {
+        display: none;
+    }
+}
+
+@media (min-width: 975px) {
+    ResponsiveNavLink {
+        display: block;
+    }
+}
+</style>

@@ -4,7 +4,8 @@
     <div class="text-gray-900 bg-gray-700">
         <div class="w-2/3 text-left mr-10 pb-8">
             <p class="pl-4 ml-16 pt-8 font-bold text-3xl text-green-400">
-                <b class="text-green-300"> <b class="text-5xl">/</b class="text-4xl"> CUBRICIONES CERDA <b class="text-5xl text-green-500">{{ this.idficha }}</b>(ID)</b>
+                <b class="text-green-300"> <b class="text-5xl">/</b class="text-4xl"> CUBRICIONES CERDA <b
+                        class="text-5xl text-green-500">{{ this.idficha }}</b>(ID)</b>
             </p>
         </div>
         <div class="px-3 pt-4 flex justify-center">
@@ -81,7 +82,8 @@
                             <td class="py-3 text-center w-1/15 numeric-cell">{{ ficha.num_cedidos }}</td>
                             <td class="py-3 text-center w-1/15 numeric-cell">{{ ficha.num_bajas }}</td>
                             <td class="py-3 text-center w-2/15 date-cell">{{ ficha.fecha_destete }}</td>
-                            <td class="py-3 text-center w-1/15 numeric-cell">{{ ficha.num_destetados }}</td>
+                            <td class="py-3 text-center text-xl text-white w-1/15 numeric-cell">{{ calcularNumDestetados(ficha) }}</td>
+
                             <!-- Acciones -->
                             <td class="py-3 text-center">
                                 <div v-if="$page.props.user.permissions.includes('update_cerda')"
@@ -116,8 +118,9 @@
                 <div class="relative bg-gray-300 rounded-lg shadow-lg">
                     <div class="flex p-6 bg-gray-900 rounded-t-md justify-center">
                         <p class=" text-lgl"><b class="text-white">CERDA</b> <b class="text-green-600 text-xl">{{
-                            editedFicha.id_cerda }}</b> <b class="text-gray-500">/</b> <b class="text-white">CUBRICION </b> <b
-                                class="text-green-600 text-xl">{{ editedFicha.id_cubricion }} </b> </p>
+                            editedFicha.id_cerda }}</b> <b class="text-gray-500">/</b> <b
+                                class="text-white">CUBRICION </b> <b class="text-green-600 text-xl">{{
+                                    editedFicha.id_cubricion }} </b> </p>
                     </div>
                     <form @submit.prevent="submitForm" class="flex flex-wrap">
                         <div class="p-6 w-full md:w-1/3">
@@ -180,7 +183,8 @@
                             <label for="num_destetados"
                                 class="mt-2 block text-sm font-medium text-gray-70">DESTETADOS</label>
                             <input type="number" v-model="editedFicha.num_destetados" id="num_destetados"
-                                name="num_destetados" class="p-2 border rounded-md w-full" min="0" max="15000">
+                                name="num_destetados" class="p-2 border rounded-md w-full" min="0" max="15000" readonly>
+
                         </div>
                         <div class="w-full bg-gray-900 rounded-b-md p-4 flex justify-center">
                             <button type="submit"
@@ -230,8 +234,6 @@ export default {
             this.modalOpen = false;
         },
         submitForm() {
-
-
             axios.put('/api/cubriciones/' + this.editedFicha.id_cubricion, this.editedFicha)
                 .then(response => {
                     console.log('Datos actualizados correctamente');
@@ -246,6 +248,17 @@ export default {
                     console.error('Error al actualizar los datos:', error);
                     // Manejar el error adecuadamente
                 });
+        },
+        calcularNumDestetados(ficha) {
+            const resultado = parseInt(ficha.nacidos_vivos) + parseInt(ficha.num_adoptados) -
+                parseInt(ficha.num_cedidos) - parseInt(ficha.num_bajas);
+
+            // Verificamos si el resultado es un número
+            if (!isNaN(resultado)) {
+                return resultado;
+            } else {
+                return ''; // Devolvemos una cadena vacía si el resultado no es un número
+            }
         },
         async createCubricion() {
             try {
@@ -263,7 +276,7 @@ export default {
                     console.log('Cubrición creada con éxito');
 
                     // Actualizar la lista de cubriciones
-                    const updatedResponse = await axios.get(`http://porkatec.apallares.dawmor.cloud/api/cubriciones/${this.idficha}`);
+                    const updatedResponse = await axios.get(`/api/cubriciones/${this.idficha}`);
                     this.fichas = updatedResponse.data;
 
                 } else {
@@ -275,10 +288,6 @@ export default {
                 console.error('Error de red al crear cubrición:', error);
             }
         }
-
-
-
-
     },
     setup() {
         const idficha = ref(window.location.pathname.split('/').pop());
@@ -294,7 +303,7 @@ export default {
         watchEffect(() => {
             const fetchData = async () => {
                 try {
-                    const response = await axios.get(`http://porkatec.apallares.dawmor.cloud/api/cubriciones/${idficha.value}`);
+                    const response = await axios.get(`/api/cubriciones/${idficha.value}`);
                     fichas.value = response.data;
                     console.log(fichas.value);
                 } catch (error) {

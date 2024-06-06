@@ -149,7 +149,8 @@ export default {
     async createTratamiento() {
       try {
         // Realizar la solicitud POST al servidor para guardar el nuevo tratamiento
-        await axios.post('http://porkatec.apallares.dawmor.cloud/api/tratamientos', this.newTratamiento);
+        console.log(this.newTratamiento)
+        await axios.post('/api/tratamientos', this.newTratamiento);
 
         // Actualizar la lista de tratamientos para reflejar el cambio en la tabla
         this.fetchData();
@@ -163,8 +164,8 @@ export default {
     },
     async fetchData() {
       try {
-        const response = await axios.get(`http://porkatec.apallares.dawmor.cloud/api/tratamientos/cerda/${this.idCerda}`);
-        const responsemed = await axios.get(`http://porkatec.apallares.dawmor.cloud/api/medicamentos`);
+        const response = await axios.get(`/api/tratamientos/cerda/${this.idCerda}`);
+        const responsemed = await axios.get(`/api/medicamentos`);
         // Asignar solo el array de tratamientos a la variable tratamientos
         this.tratamientos = response.data.tratamientos;
         // Asignar solo el array de medicamentos a la variable medicamentos
@@ -182,7 +183,7 @@ export default {
       try {
         console.log(this.editedTratamiento.id_tratamiento);
         // Realizar solicitud PUT al servidor para actualizar el tratamiento
-        await axios.put(`http://porkatec.apallares.dawmor.cloud/api/tratamientos/${this.editedTratamiento.id_tratamiento}`, this.editedTratamiento);
+        await axios.put(`/api/tratamientos/${this.editedTratamiento.id_tratamiento}`, this.editedTratamiento);
         // Cerrar el modal después de guardar los cambios
         this.modalOpen = false;
         // Actualizar la lista de tratamientos
@@ -201,8 +202,8 @@ export default {
     watchEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.get(`http://porkatec.apallares.dawmor.cloud/api/tratamientos/cerda/${idCerda.value}`);
-          const responsemed = await axios.get(`http://porkatec.apallares.dawmor.cloud/api/medicamentos`);
+          const response = await axios.get(`/api/tratamientos/cerda/${idCerda.value}`);
+          const responsemed = await axios.get(`/api/medicamentos`);
           tratamientos.value = response.data.tratamientos;
           medicamentos.value = responsemed.data; // Asignación corregida
           console.log(medicamentos.value); // Utiliza medicamentos.value para acceder a los datos

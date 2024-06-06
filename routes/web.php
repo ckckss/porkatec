@@ -30,37 +30,45 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-    ])->group(function () {
+])->group(function () {
 
-        Route::get('/admin', function () {
-            return Inertia::render('Admin');
-        })->name('admin')->middleware(['auth', 'permission:admin_bypass']);
+    Route::get('/admin', function () {
+        return Inertia::render('Admin');
+    })->name('admin')->middleware(['auth', 'permission:admin_bypass']);
 
-        Route::get('/dashboard', function () {
-            return Inertia::render('Home');})->name('dashboard');
+    Route::get('/dashboard', function () {
+        return Inertia::render('Home');
+    })->name('dashboard');
 
-        Route::get('/home', function () {
-            return Inertia::render('Home');})->name('home');
-    
-        Route::get('/usuarios', function () {
-            return Inertia::render('Usuarios');})->name('usuarios');
+    Route::get('/home', function () {
+        return Inertia::render('Home');
+    })->name('home');
 
-        Route::get('/cerdas', function () {
-            return Inertia::render('Cerdas');})->name('cerdas');
+    Route::get('/usuarios', function () {
+        return Inertia::render('Usuarios');
+    })->name('usuarios')->middleware(['auth', 'permission:admin_bypass']);
 
-        Route::get('/naves', function () {
-            return Inertia::render('Naves');})->name('naves');
+    Route::get('/cerdas', function () {
+        return Inertia::render('Cerdas');
+    })->name('cerdas');
 
-        Route::get('/medicamentos', function () {
-            return Inertia::render('Medicamentos');})->name('medicamentos');
-            
-        Route::get('/nfcreader', function () {
-            return Inertia::render('LectorNFC');})->name('nfcreader');
+    Route::get('/naves', function () {
+        return Inertia::render('Naves');
+    })->name('naves');
 
-        Route::get('/fichas/{id_cerda}', function () {
-            return Inertia::render('CubricionesCerda');})->name('fichas/{id_cerda}');
+    Route::get('/medicamentos', function () {
+        return Inertia::render('Medicamentos');
+    })->name('medicamentos');
 
-        Route::get('/tratamientos/{id_cerda}', function () {
-            return Inertia::render('TratamientosCerda');})->name('tratamientos/{id_cerda}');
+    Route::get('/nfcreader', function () {
+        return Inertia::render('LectorNFC');
+    })->name('nfcreader');
+
+    Route::get('/fichas/{id_cerda}', function () {
+        return Inertia::render('CubricionesCerda');
+    })->name('fichas/{id_cerda}');
+
+    Route::get('/tratamientos/{id_cerda}', function () {
+        return Inertia::render('TratamientosCerda');
+    })->name('tratamientos/{id_cerda}');
 });
-

@@ -7,23 +7,40 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import axios from 'axios';
 
 const form = useForm({
     name: '',
     email: '',
     password: '',
     password_confirmation: '',
-    terms: false,
+    role: 'usuario',
 });
 
 const submit = () => {
-    form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
+    if (form.password !== form.password_confirmation) {
+        alert('La contraseña y su confirmación no coinciden');
+        return;
+    }
+    if (form.password.length < 3) {
+        alert('La contraseña es demasiado corta');
+        return;
+    }
+    axios.post('/api/usuarios', form)
+         .then(response => {
+             // Handle success
+             console.log(response.data.message);
+             window.history.back();
+         })
+         .catch(error => {
+             // Handle error
+             console.error(error.response.data.message);
+         });
 };
 </script>
 
 <template>
+
     <Head title="Registro" />
 
     <AuthenticationCard>
@@ -39,55 +56,33 @@ const submit = () => {
             <form @submit.prevent="submit">
                 <div>
                     <InputLabel class="text-green-500" for="name" value="Nombre" />
-                    <TextInput
-                        id="name"
-                        v-model="form.name"
-                        type="text"
-                        class="mt-1 block w-full text-black bg-gray-400 border-green-500"
-                        required
-                        autofocus
-                        autocomplete="name"
-                    />
+                    <TextInput id="name" v-model="form.name" type="text"
+                        class="mt-1 block w-full text-black bg-gray-400 border-green-500" required autofocus
+                        autocomplete="name" />
                     <InputError class="mt-2" :message="form.errors.name" />
                 </div>
 
                 <div class="mt-4">
                     <InputLabel class="text-green-500" for="email" value="Correo electronico" />
-                    <TextInput
-                        id="email"
-                        v-model="form.email"
-                        type="email"
-                        class="mt-1 block w-full text-black bg-gray-400 border-green-500"
-                        required
-                        autofocus
-                        autocomplete="username"
-                    />
+                    <TextInput id="email" v-model="form.email" type="email"
+                        class="mt-1 block w-full text-black bg-gray-400 border-green-500" required autofocus
+                        autocomplete="username" />
                     <InputError class="mt-2" :message="form.errors.email" />
                 </div>
 
                 <div class="mt-4">
-                    <InputLabel  class="text-green-500" for="password" value="Contraseña" />
-                    <TextInput
-                        id="password"
-                        v-model="form.password"
-                        type="password"
-                        class="mt-1 block w-full text-black bg-gray-400 border-green-500"
-                        required
-                        autocomplete="new-password"
-                    />
+                    <InputLabel class="text-green-500" for="password" value="Contraseña" />
+                    <TextInput id="password" v-model="form.password" type="password"
+                        class="mt-1 block w-full text-black bg-gray-400 border-green-500" required
+                        autocomplete="new-password" />
                     <InputError class="mt-2" :message="form.errors.password" />
                 </div>
 
                 <div class="mt-4">
                     <InputLabel class="text-green-500" for="password_confirmation" value="Confirmar contraseña" />
-                    <TextInput
-                        id="password_confirmation"
-                        v-model="form.password_confirmation"
-                        type="password"
-                        class="mt-1 block w-full text-black bg-gray-400 border-green-500"
-                        required
-                        autocomplete="new-password"
-                    />
+                    <TextInput id="password_confirmation" v-model="form.password_confirmation" type="password"
+                        class="mt-1 block w-full text-black bg-gray-400 border-green-500" required
+                        autocomplete="new-password" />
                     <InputError class="mt-2" :message="form.errors.password_confirmation" />
                 </div>
 
@@ -97,7 +92,11 @@ const submit = () => {
                             <Checkbox id="terms" v-model:checked="form.terms" name="terms" required />
 
                             <div class="ms-2">
-                                I agree to the <a target="_blank" :href="route('terms.show')" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Terms of Service</a> and <a target="_blank" :href="route('policy.show')" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Privacy Policy</a>
+                                I agree to the <a target="_blank" :href="route('terms.show')"
+                                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Terms
+                                    of Service</a> and <a target="_blank" :href="route('policy.show')"
+                                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Privacy
+                                    Policy</a>
                             </div>
                         </div>
                         <InputError class="mt-2" :message="form.errors.terms" />
@@ -105,14 +104,15 @@ const submit = () => {
                 </div>
 
                 <div class="flex items-center justify-end mt-4">
-                    <Link :href="route('login')" class="text-sm text-green-400 hover:text-green-200 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                        ¿Ya estas registrado?
+                    <Link :href="route('login')"
+                        class="mr-auto text-sm text-green-400 hover:text-green-200 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                    ¿Ya estas registrado? - Iniciar sesión
                     </Link>
 
                     <button class="ms-3 bg-green-300 rounded-md shadow-sm hover:bg-green-400 hover:border-black border-gray-400 border px-4
                             inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs 
                             text-gray-700 uppercase tracking-widest shadow-sm"
-                            :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                        :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                         Register
                     </button>
                 </div>

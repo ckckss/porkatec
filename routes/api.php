@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Route;
 //// RUTA PARA EL BUSCADOR \\\\
 Route::get('/cerdas/buscador', 'ApiController@buscador')->name('cerdas.buscador');
 
-////// RUTAS CRUD \\\\\\
 ////// RUTAS CRUD USERS \\\\\\
 Route::controller(ApiController::class)->group(function () {
     // Ruta GET para visualizar todos los usuarios
@@ -78,14 +77,13 @@ Route::controller(ApiController::class)->group(function () {
     Route::delete("/medicamentos/{id}", "delete_medicamento");
 });
 
-
 ////// RUTAS CRUD TRATAMIENTOS \\\\\\
 Route::controller(ApiController::class)->group(function () {
     // Ruta GET para visualizar todos los tratamientos
     Route::get('/tratamientos', "get_tratamientos");
     // Ruta GET para visualizar un tratamiento
     Route::get('/tratamientos/{id}', "get_tratamiento");
-     // Ruta GET para visualizar tratamientos de una cerda
+    // Ruta GET para visualizar tratamientos de una cerda
     Route::get('/tratamientos/cerda/{id}', "get_tratamiento_cerda");
     // Ruta POST para guardar un tratamiento
     Route::post('/tratamientos', "store_tratamiento");

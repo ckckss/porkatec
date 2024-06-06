@@ -25,8 +25,8 @@
         </div>
 
         <!-- Tabla -->
-        <table v-if="$page.props.user.permissions.includes('read_user')" class="w-full mt-8 rounded">
-            <thead>
+        <table v-if="$page.props.user.permissions.includes('read_user')" class="w-full rounded">
+            <thead class="rounded-md">
                 <tr class="text-center text-xl h-10 bg-gray-600 text-green-500 text-left">
                     <th class="w-auto">ID USUARIO</th>
                     <th class="w-auto">NOMBRE</th>
@@ -205,7 +205,7 @@ export default {
 
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://porkatec.apallares.dawmor.cloud/api/usuarios`);
+                const response = await axios.get(`/api/usuarios`);
                 users.value = response.data;
                 console.log(users.value[0]);
             } catch (error) {

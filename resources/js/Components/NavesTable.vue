@@ -115,7 +115,7 @@ export default {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://porkatec.apallares.dawmor.cloud/api/naves');
+        const response = await axios.get('/api/naves');
         naves.value = response.data;
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -124,7 +124,7 @@ export default {
 
     const createNave = async () => {
       try {
-        await axios.post('http://porkatec.apallares.dawmor.cloud/api/naves/', {
+        await axios.post('/api/naves/', {
           nombre: newNaveName.value
         });
         showCreateModal.value = false;
@@ -143,7 +143,7 @@ export default {
 
     const updateNave = async () => {
       try {
-        await axios.put(`http://porkatec.apallares.dawmor.cloud/api/naves/${editNaveId.value}`, {
+        await axios.put(`/api/naves/${editNaveId.value}`, {
           nombre: editNaveName.value
         });
         showEditModalFlag.value = false;
@@ -156,7 +156,7 @@ export default {
 
     const deleteNave = async (id) => {
       try {
-        await axios.delete(`http://porkatec.apallares.dawmor.cloud/api/naves/${id}`);
+        await axios.delete(`/api/naves/${id}`);
         fetchData();
       } catch (error) {
         console.error('Error deleting nave:', error);

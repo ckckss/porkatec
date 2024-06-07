@@ -13,17 +13,11 @@ class TratamientoSeeder extends Seeder
     public function run(): void
     {
         Tratamiento::create([
-            'idMedicamento' => 1,
-            'idCerda' => 3872,
+            'id_medicamento' => 1,
+            'id_cerda' => 5124,
             'fecha_comienzo' => now(),
             'fecha_conclusion' => now()->addDays(5),
             'enfermedad' => 'Gripe porcina',
-        ]);
-        Tratamiento::create([
-            'idMedicamento' => 2,
-            'idCerda' => 3872,
-            'fecha_comienzo' => now(),
-            'fecha_conclusion' => now()->addDays(19),
         ]);
     }
 }

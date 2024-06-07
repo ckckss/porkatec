@@ -4,8 +4,9 @@
   <div class="text-gray-900 bg-gray-700">
     <!-- Panel de Control -->
     <div class="w-2/3 text-left mr-10 pb-8">
-      <p class="pl-4 pt-8 font-bold text-3xl text-green-400">PANEL DE CONTROL
-        <b class="text-green-300"> /TRATAMIENTOS CERDA <b class="text-4xl text-green-500">{{ this.idCerda }}</b></b>
+      <p class="pl-4 ml-16 pt-8 font-bold text-3xl text-green-400">
+        <b class="text-green-300"> <b class="text-5xl">/</b> TRATAMIENTOS CERDA <b class="text-5xl text-green-500">{{
+          this.idCerda }}</b> (ID)</b>
       </p>
     </div>
     <!-- Botón para añadir tratamiento -->
@@ -36,8 +37,8 @@
               <!-- Columnas de datos -->
               <td class="py-3 text-center bg-gray-600 w-auto text-xl text-green-400">{{ tratamiento.id_tratamiento }}
               </td>
-              <td class="py-3 text-center">{{ tratamiento.fecha_comienzo }}</td>
-              <td class="py-3 text-center">{{ tratamiento.fecha_conclusion }}</td>
+              <td class="py-3 text-center">{{ formatDate(tratamiento.fecha_comienzo) }}</td>
+              <td class="py-3 text-center">{{ formatDate(tratamiento.fecha_conclusion) }}</td>
               <td class="py-3 text-center">{{ tratamiento.medicamento ? tratamiento.medicamento.nombre : '' }}</td>
               <td class="py-3 text-center">{{ tratamiento.enfermedad }}</td>
               <!-- Acciones -->
@@ -64,6 +65,8 @@
         AÑADIR TRATAMIENTO
       </button>
     </div>
+
+
     <div v-if="modalOpen" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
       aria-modal="true">
       <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -74,17 +77,10 @@
           <!-- Contenido del formulario -->
           <div class="flex p-6 bg-gray-900 rounded-t-md justify-center">
             <p class=" text-lgl"><b class="text-white">CERDA</b> <b class="text-green-600 text-xl">{{
-              editedTratamiento.id_cerda }}</b> <b class="text-gray-500">/</b> <b class="text-white">TRATAMIENTO </b> <b
-                class="text-green-600 text-xl">{{ editedTratamiento.id_tratamiento }} </b> </p>
-            <button @click="modalOpen = false" type="button"
-              class="bg-gray-900 text-gray-400 hover:text-gray-300 focus:outline-none focus:text-gray-300 absolute top-0 right-0 mt-4 mr-4">
-              <span class="sr-only">Cerrar</span>
-              <!-- Icono para cerrar el modal -->
-              <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+              editedTratamiento.id_cerda }}</b> <b class="text-gray-500">/</b> <b class="text-white">TRATAMIENTO </b>
+              <b class="text-green-600 text-xl">{{ editedTratamiento.id_tratamiento }} </b>
+            </p>
+
           </div>
           <!-- Formulario para editar tratamiento -->
           <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
@@ -115,6 +111,9 @@
               class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">
               Guardar cambios
             </button>
+            <button type="button" @click="modalOpen = false"
+              class="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-gray-700 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">Cancelar</button>
+
           </div>
         </div>
       </div>
@@ -146,6 +145,17 @@ export default {
     }
   },
   methods: {
+    formatDate(dateString) {
+      if (!dateString) {
+        return ''; // Retorna cadena vacía si la fecha es null
+      }
+
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    },
     async createTratamiento() {
       try {
         // Realizar la solicitud POST al servidor para guardar el nuevo tratamiento

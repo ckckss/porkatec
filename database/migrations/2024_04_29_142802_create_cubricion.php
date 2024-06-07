@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('cubriciones', function (Blueprint $table) {
             $table->bigIncrements('id_cubricion');
-            $table->bigInteger('id_cerda')->unsigned()->nullable(false);
+            $table->foreignId('id_cerda')->constrained('fichas_cerdas', 'id_cerda')->onDelete('cascade');;
             $table->date('fecha_cubricion')->nullable(false);
             $table->enum('estado', ['vacia', 'repetida', 'aborto', 'sucia', ''])->nullable(true);
             $table->date('fecha_parto')->nullable(true);

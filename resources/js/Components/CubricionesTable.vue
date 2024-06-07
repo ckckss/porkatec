@@ -4,8 +4,8 @@
     <div class="text-gray-900 bg-gray-700">
         <div class="w-2/3 text-left mr-10 pb-8">
             <p class="pl-4 ml-16 pt-8 font-bold text-3xl text-green-400">
-                <b class="text-green-300"> <b class="text-5xl">/</b class="text-4xl"> CUBRICIONES CERDA <b
-                        class="text-5xl text-green-500">{{ this.idficha }}</b>(ID)</b>
+                <b class="text-green-300"> <b class="text-5xl">/</b> CUBRICIONES CERDA <b
+                        class="text-5xl text-green-500">{{ this.idficha }}</b> (ID)</b>
             </p>
         </div>
         <div class="px-3 pt-4 flex justify-center">
@@ -234,6 +234,10 @@ export default {
             this.modalOpen = false;
         },
         submitForm() {
+            // Calcular el número de destetados
+            const numDestetados = this.calcularNumDestetados(this.editedFicha);
+            this.editedFicha.num_destetados = numDestetados;
+            
             axios.put('/api/cubriciones/' + this.editedFicha.id_cubricion, this.editedFicha)
                 .then(response => {
                     console.log('Datos actualizados correctamente');

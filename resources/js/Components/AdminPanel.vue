@@ -1,12 +1,13 @@
-<template><header class="rounded-t-md bg-gray-900 py-6">
-   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center">
-         <h1 class="text-3xl font-bold text-white">PORKA-TEC | ADMINISTRADOR</h1>
+<template>
+   <header class="rounded-t-md bg-gray-900 py-6">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+         <div class="flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-white">PORKA-TEC | ADMINISTRADOR</h1>
+         </div>
       </div>
-   </div>
-</header>
+   </header>
    <div class="padre_real rounded-md">
-      
+
       <div class="py-4 px-16 bg-gray-400">
          <ul class="divide-y divide-gray-300">
             <li class="flex items-center py-2">
@@ -31,6 +32,17 @@
             </li>
          </ul>
       </div>
+      <hr>
+      <div class="w-full mx-auto flex">
+         <div class="bg-gray-400 pt-12 text-green-300 w-full h-auto flex justify-center items-center text-xl">
+            <b><b class="text-green-400">INDIVIDUAL |</b> NUMERO DE LECHONES VIVOS Y MUERTOS</b>
+         </div>
+         <div class="bg-gray-400 pt-12 text-green-300 w-full h-auto flex justify-center items-center text-xl">
+            <b><b class="text-green-400">TOTAL |</b> NUMERO DE LECHONES VIVOS, ADOPCIONES, CESIONES, BAJAS Y
+               DESTETADOS</b>
+         </div>
+      </div>
+
 
 
       <div class="bg-gray-400 pb-32 container_padre">
@@ -38,29 +50,27 @@
             <div id="grafico_uno">
                <canvas id="chart_uno"></canvas>
             </div>
-            <div id="grafico_dos"></div>
+            <div id="grafico_dos">
+               <canvas id="chart_cuatro"></canvas>
+            </div>
          </div>
          <div id="container_dos">
+            <div class="pb-4 pt-8 w-full text-center text-green-300 text-2xl">
+               <b><b class="text-green-400">MENSUAL |</b> LECHONES DESTETADOS POR CERDA</b>
+            </div>
             <div id="grafico_tres">
-               <div class="w-full text-center text-green-300 text-2xl">
-                  <b><b class="text-green-400">MENSUAL |</b> LECHONES DESTETADOS POR CERDA</b>
-               </div>
+
                <canvas id="chart_tres"></canvas>
             </div>
          </div>
 
       </div>
    </div>
-   <div class="bg-gray-400 px-4 pb-6">
+
+   <div class="bg-gray-400 rounded-b-md pt-60 px-4 pb-6">
       <button @click="exportToPDF"
          class="w-full mx-auto bg-green-300 rounded-md shadow-sm hover:bg-green-400 hover:border-black border-gray-400 border px-4 py-4 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm text-center">
          Exportar a PDF
-      </button>
-   </div>
-   <div class="bg-gray-400 px-4 rounded-b-md pb-6">
-      <button @click=""
-         class="w-full mx-auto bg-green-300 rounded-md shadow-sm hover:bg-green-400 hover:border-black border-gray-400 border px-4 py-4 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm text-center">
-         Backup base de datos
       </button>
    </div>
 </template>
@@ -86,6 +96,7 @@ const printCharts = async () => {
    var cubriciones = data
    renderVivosMuertos(cubriciones)
    renderMonthlyChart(cubriciones)
+   renderPieChart(calculateTotals(cubriciones))
 }
 
 const renderVivosMuertos = cubriciones => {
@@ -238,7 +249,57 @@ const getCubricionesMonthly = (cubriciones, months) => {
    });
    return datasets;
 };
+const calculateTotals = (cubriciones) => {
+   let vivos = 0;
+   let cedidos = 0;
+   let adoptados = 0;
+   let bajas = 0;
+   let destetados = 0;
 
+   cubriciones.forEach((cubricion) => {
+      vivos += cubricion.nacidos_vivos;
+      cedidos += cubricion.num_cedidos;
+      adoptados += cubricion.num_adoptados;
+      bajas += cubricion.num_bajas;
+      destetados += cubricion.num_destetados;
+   });
+
+   return { vivos, cedidos, adoptados, bajas, destetados };
+};
+const renderPieChart = (totals) => {
+   const data = {
+      labels: ['Vivos', 'Cedidos', 'Adoptados', 'Bajas', 'Destetados'],
+      datasets: [{
+         label: "Cantidad",
+         data: [totals.vivos, totals.cedidos, totals.adoptados, totals.bajas, totals.destetados],
+         backgroundColor: [
+            'rgba(144, 238, 144, 0.8)',
+            'rgba(0, 128, 0, 0.8)',
+            'rgba(0, 233, 0, 0.8)',
+            'rgba(50, 205, 50, 0.8)',
+            'rgba(34, 139, 34, 0.8)'
+         ],
+         hoverOffset: 4
+      }]
+   };
+
+   const options = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+         legend: { position: 'top' }
+      }
+   };
+
+   const container = document.getElementById('grafico_dos');
+   const canvas = document.getElementById('chart_cuatro');
+   const context = canvas.getContext('2d');
+
+   canvas.width = container.offsetWidth;
+   canvas.height = container.offsetHeight;
+
+   new Chart(context, { type: 'pie', data, options });
+};
 
 printCharts()
 export default {

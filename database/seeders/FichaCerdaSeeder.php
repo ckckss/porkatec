@@ -18,10 +18,5 @@ class FichaCerdaSeeder extends Seeder
             'id_nave' => 1,
             'nfc' => 1311
         ]);
-        FichaCerda::create([
-            'id_cerda' => 3872,
-            'id_nave' => 1,
-            'nfc' => 1343
-        ]);
     }
 }

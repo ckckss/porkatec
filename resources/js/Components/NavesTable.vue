@@ -69,33 +69,45 @@
       </tbody>
     </table>
 
-    <!-- Modal Crear Nave -->
-    <div v-if="showCreateModal" class="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-75">
-      <div class="bg-white p-8 rounded-lg">
-        <h2 class="text-2xl font-bold mb-4">Crear Nave</h2>
-        <input type="text" v-model="newNaveName" placeholder="Nombre de la nave"
-          class="border border-gray-300 rounded-md px-4 py-2 mb-4" />
-        <div class="flex justify-end">
-          <button @click="createNave" class="px-4 py-2 bg-green-500 text-white rounded-md mr-2">Guardar</button>
-          <button @click="showCreateModal = false"
-            class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md">Cancelar</button>
-        </div>
+  <!-- Modal Editar Nave -->
+  <div v-if="showEditModalFlag" class="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-75">
+    <div class="bg-white rounded-lg">
+      <div class="p-4 rounded-t-md bg-gray-900">
+        <h2 class="text-xl font-bold text-white">EDITAR NAVE</h2>
+      </div>
+      <div class="bg-gray-300 px-4 pt-4 pb-16">
+        <label for="nave" class="block text-sm font-medium">Nombre de la nave</label>
+        <input type="text" v-model="editNaveName" class="border border-gray-300 rounded-md px-4 py-2" />
+      </div>
+      <div class="rounded-b-md flex justify-end bg-gray-900 p-4">
+        <button @click="showEditModalFlag = false" class="mr-2 py-2 rounded-md shadow-sm hover:bg-gray-600 bg-gray-500 hover:border-black border-gray-400 border px-4 inline-flex items-center border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">Cancelar</button>
+        <button @click="updateNave" class="ml-4 bg-green-300 rounded-md shadow-sm hover:bg-green-400 hover:border-green-600 border-gray-400 border px-4 inline-flex items-center py-2 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">Guardar</button>
       </div>
     </div>
+  </div>
 
-    <!-- Modal Editar Nave -->
-    <div v-if="showEditModalFlag" class="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-75">
-      <div class="bg-white p-8 rounded-lg">
-        <h2 class="text-2xl font-bold mb-4">Editar Nave</h2>
-        <input type="text" v-model="editNaveName" placeholder="Nombre de la nave"
-          class="border border-gray-300 rounded-md px-4 py-2 mb-4" />
-        <div class="flex justify-end">
-          <button @click="updateNave" class="px-4 py-2 bg-green-500 text-white rounded-md mr-2">Guardar</button>
-          <button @click="showEditModalFlag = false"
-            class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md">Cancelar</button>
-        </div>
+<!-- Modal Crear Nave -->
+<div v-if="showCreateModal" class="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-75">
+  <div class="">
+    <div class="p-4 rounded-t-md bg-gray-900">
+      <h2 class="text-lg font-bold text-white">CREAR NAVE</h2>
+    </div>
+    <div class="bg-gray-300 px-4 pt-4 pb-16">
+       <label for="nave" class="block text-sm font-medium">Nombre de la nave</label>
+      <input type="text" v-model="newNaveName" placeholder="Nombre de la nave" class="border border-gray-300 rounded-md px-4 py-2" />
+    </div>
+    <div class="bg-gray-900 p-4 rounded-b-md">
+      <div class="flex justify-end">
+        <button type="button" @click="showCreateModal = false" class="mr-2 px-4 py-2 rounded-md shadow-sm hover:bg-gray-600 bg-gray-500 hover:border-black border-gray-400 border inline-flex items-center font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">
+          Cancelar
+        </button>
+        <button @click="createNave" class="ml-4 bg-green-300 rounded-md shadow-sm hover:bg-green-400 hover:border-green-600 border-gray-400 border px-4 inline-flex items-center font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">
+          Guardar
+        </button>
       </div>
     </div>
+  </div>
+</div>
   </div>
 </template>
 

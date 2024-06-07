@@ -50,7 +50,7 @@ const logout = () => {
                                     :href="route('admin')" :active="route().current('admin')">
                                     ADMINISTRADOR
                                 </NavLink>
-                                <NavLink v-if="$page.props.user.permissions.includes('read_user')"
+                                <NavLink v-if="$page.props.user.permissions.includes('usuarios_bypass')"
                                     :href="route('usuarios')" :active="route().current('usuarios')">
                                     USUARIOS
                                 </NavLink>

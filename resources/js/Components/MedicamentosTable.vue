@@ -4,8 +4,8 @@
       <div class="w-full h-30 flex justify-end">
          <!-- Panel de Control -->
          <div class="w-2/3 my-auto ml-24 text-left mr-10 pb-8">
-                <b class="text-green-300 text-4xl"><b class="text-5xl">/</b> MEDICAMENTOS</b>
-            </div>
+            <b class="text-green-300 text-4xl"><b class="text-5xl">/</b> MEDICAMENTOS</b>
+         </div>
          <!-- Botón para Crear Nuevo Medicamento -->
          <button @click="showCreateModal = true" type="button"
             class="w-1/4 h-15 flex justify-end items-center pr-8 bg-green-300 hover:bg-green-400 pb-8 rounded-l-lg">
@@ -77,37 +77,58 @@
 
       <!-- Modal Crear Medicamento -->
       <div v-if="showCreateModal" class="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-75">
-         <div class="bg-white p-8 rounded-lg">
-            <h2 class="text-2xl font-bold mb-4">Crear Medicamento</h2>
-            <input type="text" v-model="newMedName" placeholder="Nombre del medicamento"
-               class="border border-gray-300 rounded-md px-4 py-2 mb-4" />
-            <input type="text" v-model="newMedDosis" placeholder="Dosis del medicamento"
-               class="border border-gray-300 rounded-md px-4 py-2 mb-4" />
-            <div class="flex justify-end">
-               <button @click="createMedicamento"
-                  class="px-4 py-2 bg-green-500 text-white rounded-md mr-2">Guardar</button>
-               <button @click="showCreateModal = false"
-                  class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md">Cancelar</button>
+         <div class="bg-gray-300 rounded-lg">
+            <div class="p-4 rounded-t-md bg-gray-900 pr-12">
+               <h2 class="text-xl font-bold text-white">CREAR MEDICAMENTO</h2>
             </div>
+            <div class="p-4">
+               <div class="mb-4">
+                  <label for="editMedName" class="block font-bold mb-2">Nombre del medicamento:</label>
+                  <input type="text" v-model="newMedName" class="border border-gray-300 rounded-md px-4 py-2 w-full" />
+               </div>
+               <div class="mb-4">
+                  <label for="editMedDosis" class="block font-bold mb-2">Dosis del medicamento:</label>
+                  <input type="text" v-model="newMedDosis" class="border border-gray-300 rounded-md px-4 py-2 w-full" />
+               </div>
+            </div>
+            <div class="bg-gray-900 p-4 rounded-b-md">
+               <div class="flex justify-end">
+                  <button @click="showCreateModal = false"
+                     class="mx-auto px-4 py-2 rounded-md shadow-sm hover:bg-gray-600 bg-gray-500 hover:border-black border-gray-400 border px-4 inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">Cancelar</button>
+                  <button @click="createMedicamento"
+                     class="mx-auto bg-green-300 rounded-md shadow-sm hover:bg-green-400 hover:border-green-600 border-gray-400 border px-4 inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">Guardar</button>
+               </div>
+            </div>
+            <button @click="closeCreateModal" class="absolute top-0 right-0 mt-2 mr-2">
+          <svg class="h-6 w-6 text-green-300 hover:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
          </div>
       </div>
 
-      <!-- Modal Editar Nave -->
-      <div v-if="showEditModalFlag" class="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-75">
-         <div class="bg-white p-8 rounded-lg">
-            <h2 class="text-2xl font-bold mb-4">Editar Medicamento</h2>
-            <input type="text" v-model="editMedName" placeholder="Nombre del medicamento"
-               class="border border-gray-300 rounded-md px-4 py-2 mb-4" />
-            <input type="text" v-model="editMedDosis" placeholder="Dosis del medicamento"
-               class="border border-gray-300 rounded-md px-4 py-2 mb-4" />
-            <div class="flex justify-end">
-               <button @click="updateMedicamento"
-                  class="px-4 py-2 bg-green-500 text-white rounded-md mr-2">Guardar</button>
-               <button @click="showEditModalFlag = false"
-                  class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md">Cancelar</button>
-            </div>
-         </div>
+     <!-- Modal Editar Medicamento -->
+  <div v-if="showEditModalFlag" class="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-75">
+    <div class="bg-gray-300 rounded-lg">
+      <div class="p-4 rounded-t-md bg-gray-900 pr-12">
+        <h2 class="text-xl font-bold text-white">EDITAR MEDICAMENTO</h2>
       </div>
+      <div class="bg-gray-300 px-4 pt-4">
+        <label for="editMedName" class="block font-bold mb-2">Nombre del medicamento</label>
+        <input type="text" id="editMedName" v-model="editMedName" class="border border-gray-300 rounded-md px-4 py-2 mb-4 w-full" />
+      </div>
+      <div class="bg-gray-300 px-4 pb-6">
+        <label for="editMedDosis" class="block font-bold mb-2">Dosis del medicamento</label>
+        <input type="text" id="editMedDosis" v-model="editMedDosis" class="border border-gray-300 rounded-md px-4 py-2 w-full" />
+      </div>
+      <div class="bg-gray-900 p-4 rounded-b-md">
+        <div class="flex justify-end">
+          <button @click="showEditModalFlag = false" class="mx-auto px-4 py-2 rounded-md shadow-sm hover:bg-gray-600 bg-gray-500 hover:border-black border-gray-400 border px-4 inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">Cancelar</button>
+          <button @click="updateMedicamento" class="mx-auto bg-green-300 rounded-md shadow-sm hover:bg-green-400 hover:border-green-600 border-gray-400 border px-4 inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
    </div>
 </template>
 

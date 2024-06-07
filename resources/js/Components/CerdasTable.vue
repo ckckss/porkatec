@@ -113,93 +113,84 @@
             </table>
 
             <!-- MODAL UPDATE -->
-            <div v-if="showModal"
-                class="fixed inset-0 z-10 overflow-y-auto bg-gradient-to-b from-green-300 to-transparent">
+            <div v-if="showModal" class="fixed inset-0 z-10 overflow-y-auto">
                 <div class="flex items-center justify-center min-h-screen">
-                    <div class="fixed inset-0 bg-green-300 opacity-50"></div>
-                    <div class="relative bg-gray-400 border-green-500 rounded-lg max-w-lg mx-auto p-8">
+                    <div class="relative bg-gray-400 border-green-500 rounded-lg max-w-lg mx-auto">
                         <!-- Modal content -->
-                        <h2 class="text-xl font-bold mb-4">Actualizar Cerda</h2>
+                        <div class="p-4 rounded-t-md bg-gray-900">
+                            <h2 class="text-lg font-bold text-white">EDITAR CERDA</h2>
+                        </div>
                         <!-- Formulario para actualizar usuario -->
                         <form @submit.prevent="updateCerda">
                             <!-- Campos del formulario para actualizar usuario -->
                             <!-- Por ejemplo: -->
-                            <div class="mb-4">
-                                <label for="nave" class="block text-sm font-medium text-gray-700">ID nave</label>
+                            <div class="mb-4 pt-4 w-5/6 ml-4">
+                                <label for="nave" class="block text-sm font-medium">ID Nave</label>
                                 <select v-model="selectedCerda.id_nave"
-                                    class="mt-1 focus:ring-green-500 focus:bg-gray-200 focus:border-green-400 bg-gray-300 block w-full shadow-sm sm:text-sm border-green-300 rounded-md">
+                                    class="mt-1 focus:ring-green-500 focus:border-green-400 block w-full shadow-sm sm:text-sm border-green-300 rounded-md p-2">
                                     <option v-for="(nave, index) in naves" :key="nave.id_nave" :value="nave.id_nave">
                                         {{ nave.nombre }}
                                     </option>
                                 </select>
                             </div>
-                            <div class="mb-4">
-                                <label for="nave" class="block text-sm font-medium text-gray-700">Numero NFC</label>
+                            <div class="mb-4 pb-2 w-5/6 ml-4">
+                                <label for="nave" class="block text-sm font-medium">Numero NFC</label>
                                 <input type="number" id="nave" v-model="selectedCerda.nfc"
-                                    class="mt-1 focus:ring-green-500 focus:bg-gray-200 focus:border-green-400 bg-gray-300 block w-full shadow-sm sm:text-sm border-green-300 rounded-md">
+                                    class="mt-1 focus:ring-green-500 focus:border-green-400 block w-full shadow-sm sm:text-sm border-green-300 rounded-md p-2">
                             </div>
                             <!-- Botones del formulario -->
-                            <div class="flex justify-end">
-                                <button type="button" @click="closeModal"
-                                    class="mr-2 px-4 py-2 rounded-md shadow-sm hover:bg-gray-600 bg-gray-500 hover:border-black border-gray-400 border px-4 inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">Cancelar</button>
-                                <button type="submit"
-                                    class="ml-4 bg-green-300 rounded-md shadow-sm hover:bg-green-400 hover:border-green-600 border-gray-400 border px-4 inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">Guardar</button>
+                            <div class="bg-gray-900 p-4 rounded-b-md">
+                                <div class="flex justify-end">
+                                    <button type="button" @click="closeModal"
+                                        class="mr-2 px-4 py-2 rounded-md shadow-sm hover:bg-gray-600 bg-gray-500 hover:border-black border-gray-400 border px-4 inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">Cancelar</button>
+                                    <button type="submit"
+                                        class="ml-4 bg-green-300 rounded-md shadow-sm hover:bg-green-400 hover:border-green-600 border-gray-400 border px-4 inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">Guardar</button>
+                                </div>
                             </div>
                         </form>
-                        <!-- Your update user form goes here -->
-                        <button @click="closeModal" class="absolute top-0 right-0 mt-2 mr-2">
-                            <svg class="h-6 w-6 text-green-300 hover:text-green-400" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
                     </div>
                 </div>
             </div>
 
             <!-- MODAL CREATE -->
-            <div v-if="showCreateModal"
-                class="fixed inset-0 z-10 overflow-y-auto bg-gradient-to-b from-green-300 to-transparent">
+            <div v-if="showCreateModal" class="fixed inset-0 z-10 overflow-y-auto">
                 <div class="flex items-center justify-center min-h-screen">
-                    <div class="fixed inset-0 bg-green-300 opacity-50"></div>
-                    <div class="relative bg-gray-400 border-green-500 rounded-lg max-w-lg mx-auto p-8">
+                    <div class="relative bg-gray-400 border-green-500 rounded-lg max-w-lg mx-auto">
                         <!-- Modal content -->
-                        <h2 class="text-xl font-bold mb-4">Crear Nuevo cerda</h2>
+                        <div class="p-4 rounded-t-md bg-gray-900">
+                            <h2 class="text-lg font-bold text-white">CREAR CERDA</h2>
+                        </div>
                         <!-- Formulario para crear un nuevo nave -->
                         <form @submit.prevent="createCerda">
-                            <!-- Campos del formulario para crear una nueva nave -->
-                            <div class="mb-4">
-                                <label for="newCerdaNFC" class="block text-sm font-medium text-gray-700">Numero
-                                    NFC</label>
-                                <input type="number" id="newCerdaNFC" v-model="newCerda.nfc"
-                                    class="mt-1 focus:ring-green-500 focus:bg-gray-200 focus:border-green-400 bg-gray-300 block w-full shadow-sm sm:text-sm border-green-300 rounded-md">
-                            </div>
-                            <!-- Campo de selección para la nave -->
-                            <div class="mb-4">
-                                <label for="newCerdaNave" class="block text-sm font-medium text-gray-700">Nave</label>
-                                <select id="newCerdaNave" v-model="newCerda.id_nave"
-                                    class="mt-1 focus:ring-green-500 focus:bg-gray-200 focus:border-green-400 bg-gray-300 block w-full shadow-sm sm:text-sm border-green-300 rounded-md">
-                                    <option v-for="(nave, index) in naves" :key="nave.id_nave" :value="nave.id_nave">
-                                        {{ nave.nombre }}
-                                    </option>
-                                </select>
-                            </div>
-                            <!-- Botones del formulario -->
-                            <div class="flex justify-end">
-                                <button type="button" @click="closeCreateModal"
-                                    class="mr-2 px-4 py-2 rounded-md shadow-sm hover:bg-gray-600 bg-gray-500 hover:border-black border-gray-400 border px-4 inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">Cancelar</button>
-                                <button type="submit"
-                                    class="ml-4 bg-green-300 rounded-md shadow-sm hover:bg-green-400 hover:border-green-600 border-gray-400 border px-4 inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">Guardar</button>
+                            <div class="bg-gray-300 rounded-b-lg">
+                                <!-- Campos del formulario para crear una nueva cerda -->
+                                <div class="mb-4 pt-4 w-5/6 ml-4">
+                                    <label for="newCerdaNFC" class="block text-sm font-medium">Numero NFC</label>
+                                    <input type="number" id="newCerdaNFC" v-model="newCerda.nfc"
+                                        class="mt-1 focus:ring-green-500 focus:border-green-400 block w-full shadow-sm sm:text-sm border-green-300 py-2 rounded-md">
+                                </div>
+                                <!-- Campo de selección para la nave -->
+                                <div class="mb-4 pb-2 w-5/6 ml-4">
+                                    <label for="newCerdaNave" class="block text-sm font-medium">Nave</label>
+                                    <select id="newCerdaNave" v-model="newCerda.id_nave"
+                                        class="mt-1 focus:ring-green-500 focus:border-green-400 block w-full shadow-sm sm:text-sm border-green-300 rounded-md py-2">
+                                        <option v-for="(nave, index) in naves" :key="nave.id_nave"
+                                            :value="nave.id_nave">
+                                            {{ nave.nombre }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <!-- Botones del formulario -->
+                                <div class="bg-gray-900 p-4 rounded-b-md">
+                                    <div class="flex justify-end">
+                                        <button type="button" @click="closeCreateModal"
+                                            class="mr-2 px-4 py-2 rounded-md shadow-sm hover:bg-gray-600 bg-gray-500 hover:border-black border-gray-400 border px-4 inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">Cancelar</button>
+                                        <button type="submit"
+                                            class="ml-4 bg-green-300 rounded-md shadow-sm hover:bg-green-400 hover:border-green-600 border-gray-400 border px-4 inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">Guardar</button>
+                                    </div>
+                                </div>
                             </div>
                         </form>
-                        <button @click="closeCreateModal" class="absolute top-0 right-0 mt-2 mr-2">
-                            <svg class="h-6 w-6 text-green-300 hover:text-green-400" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
                     </div>
                 </div>
             </div>

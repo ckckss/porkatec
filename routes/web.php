@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Permission;
@@ -46,8 +47,8 @@ Route::middleware([
 
     Route::get('/usuarios', function () {
         return Inertia::render('Usuarios');
-    })->name('usuarios')->middleware(['auth', 'permission:admin_bypass']);
-
+    })->name('usuarios')->middleware(['auth', 'permission:usuarios_bypass,']);
+    
     Route::get('/cerdas', function () {
         return Inertia::render('Cerdas');
     })->name('cerdas');

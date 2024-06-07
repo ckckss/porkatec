@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('fichas_cerdas', function (Blueprint $table) {
             $table->bigIncrements('id_cerda');
-            $table->bigInteger('id_nave')->unsigned()->nullable(false);
+            $table->foreignId('id_nave')->nullable()->constrained('naves', 'id_nave')->nullOnDelete();
             $table->string("nfc");
             $table->timestamps();
         });

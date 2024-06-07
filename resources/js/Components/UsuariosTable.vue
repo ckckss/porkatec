@@ -75,104 +75,87 @@
             </tbody>
         </table>
 
-        <!-- MODAL UPDATE -->
-        <div v-if="showModal" class="fixed inset-0 z-10 overflow-y-auto bg-gradient-to-b from-green-300 to-transparent">
-            <div class="flex items-center justify-center min-h-screen">
-                <div class="fixed inset-0 bg-green-300 opacity-50"></div>
-                <div class="relative bg-gray-400 border-green-500 rounded-lg max-w-lg mx-auto p-8">
-                    <!-- Modal content -->
-                    <h2 class="text-xl font-bold mb-4">Actualizar Usuario</h2>
-                    <!-- Formulario para actualizar usuario -->
-                    <form @submit.prevent="updateUser">
-                        <!-- Campos del formulario para actualizar usuario -->
-                        <!-- Por ejemplo: -->
-                        <div class="mb-4">
-                            <label for="name" class="block text-sm font-medium text-gray-700">Nombre</label>
-                            <input type="text" id="name" v-model="selectedUser.name"
-                                class="mt-1 focus:ring-green-500 focus:bg-gray-200 focus:border-green-400 bg-gray-300 block w-full shadow-sm sm:text-sm border-green-300 rounded-md">
-                        </div>
-                        <div class="mb-4">
-                            <label for="email" class="block text-sm font-medium text-gray-700">Correo
-                                electronico</label>
-                            <input type="email" id="email" v-model="selectedUser.email"
-                                class="mt-1 focus:ring-green-500 focus:bg-gray-200 focus:border-green-400 bg-gray-300 block w-full shadow-sm sm:text-sm border-green-300 rounded-md">
-                        </div>
-                        <!-- Botones del formulario -->
-                        <div class="flex justify-end">
-                            <button type="button" @click="closeModal"
-                                class="mr-2 px-4 py-2 rounded-md shadow-sm hover:bg-gray-600 bg-gray-500 hover:border-black border-gray-400 border px-4 inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">Cancelar</button>
-                            <button type="submit"
-                                class="ml-4 bg-green-300 rounded-md shadow-sm hover:bg-green-400 hover:border-green-600 border-gray-400 border px-4 inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">Guardar</button>
-                        </div>
-                    </form>
-                    <!-- Your update user form goes here -->
-                    <button @click="closeModal" class="absolute top-0 right-0 mt-2 mr-2">
-                        <svg class="h-6 w-6 text-green-300 hover:text-green-400" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
+    <!-- MODAL UPDATE -->
+    <div v-if="showModal" class="fixed inset-0 z-10 overflow-y-auto">
+    <div class="flex items-center justify-center min-h-screen">
+      <div class="fixed inset-0 "></div>
+      <div class="relative bg-gray-400 border-green-500 rounded-lg max-w-lg mx-auto">
+        <!-- Modal content -->
+        <div class="bg-gray-900 rounded-t-md p-2">
+          <h2 class="text-lg text-white font-bold mb-4 ml-2">EDITAR USUARIO</h2>
         </div>
+        <!-- Formulario para actualizar usuario -->
+        <form @submit.prevent="updateUser">
+          <!-- Campos del formulario para actualizar usuario -->
+          <!-- Por ejemplo: -->
+          <div class="mb-4 pt-4 w-5/6 ml-4 pt-2">
+            <label for="newUserName" class="block text-sm font-medium">Nombre</label>
+            <input type="text" id="name" v-model="selectedUser.name" class="mt-1 focus:ring-green-500 focus:border-green-400 block w-full shadow-sm sm:text-sm border-green-300 py-2 rounded-md">
+          </div>
+          <div class="mb-4 w-5/6 ml-4 pb-2">
+            <label for="newUserEmail" class="block text-sm font-medium">Correo
+              electrónico</label>
+            <input type="email" id="email" v-model="selectedUser.email" class="mt-1 focus:ring-green-500 focus:border-green-400 py-2 block w-full shadow-sm sm:text-sm border-green-300 rounded-md">
+          </div>
+          <!-- Botones del formulario -->
+          <div class="flex justify-end bg-gray-900 p-4 rounded-b-md">
+            <button type="button" @click="closeModal" class="mr-2 px-4 py-2 rounded-md shadow-sm hover:bg-gray-600 bg-gray-500 hover:border-black border-gray-400 border px-4 inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">Cancelar</button>
+            <button type="submit" class="ml-4 bg-green-300 rounded-md shadow-sm hover:bg-green-400 hover:border-green-600 border-gray-400 border px-4 inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">Guardar</button>
+          </div>
 
+        </form>
+      </div>
+    </div>
+  </div>
 
-        <!-- MODAL CREATE -->
-        <div v-if="showCreateModal"
-            class="fixed inset-0 z-10 overflow-y-auto bg-gradient-to-b from-green-300 to-transparent">
-            <div class="flex items-center justify-center min-h-screen">
-                <div class="fixed inset-0 bg-green-300 opacity-50"></div>
-                <div class="relative bg-gray-400 border-green-500 rounded-lg max-w-lg mx-auto p-8">
-                    <!-- Modal content -->
-                    <h2 class="text-xl font-bold mb-4">Crear Nuevo Usuario</h2>
-                    <!-- Formulario para crear un nuevo usuario -->
-                    <form @submit.prevent="createUser">
-                        <!-- Campos del formulario para crear un nuevo usuario -->
-                        <div class="mb-4">
-                            <label for="newUserName" class="block text-sm font-medium text-gray-700">Nombre</label>
-                            <input type="text" id="newUserName" v-model="newUser.name"
-                                class="mt-1 focus:ring-green-500 focus:bg-gray-200 focus:border-green-400 bg-gray-300 block w-full shadow-sm sm:text-sm border-green-300 rounded-md">
-                        </div>
-                        <div class="mb-4">
-                            <label for="newUserEmail" class="block text-sm font-medium text-gray-700">Correo
-                                electrónico</label>
-                            <input type="email" id="newUserEmail" v-model="newUser.email"
-                                class="mt-1 focus:ring-green-500 focus:bg-gray-200 focus:border-green-400 bg-gray-300 block w-full shadow-sm sm:text-sm border-green-300 rounded-md">
-                        </div>
-                        <div class="mb-4">
-                            <label for="newUserPass" class="block text-sm font-medium text-gray-700">Contraseña</label>
-                            <input type="password" id="newUserPass" v-model="newUser.password"
-                                class="mt-1 focus:ring-green-500 focus:bg-gray-200 focus:border-green-400 bg-gray-300 block w-full shadow-sm sm:text-sm border-green-300 rounded-md">
-                        </div>
-                        <!-- Campo de selección para el rol -->
-                        <div class="mb-4">
-                            <label for="newUserRole" class="block text-sm font-medium text-gray-700">Rol</label>
-                            <select id="newUserRole" v-model="newUser.role"
-                                class="mt-1 focus:ring-green-500 focus:bg-gray-200 focus:border-green-400 bg-gray-300 block w-full shadow-sm sm:text-sm border-green-300 rounded-md">
-                                <option value="admin">Admin</option>
-                                <option value="encargado">Encargado</option>
-                                <option value="usuario">Usuario</option>
-                            </select>
-                        </div>
-                        <!-- Botones del formulario -->
-                        <div class="flex justify-end">
-                            <button type="button" @click="closeCreateModal"
-                                class="mr-2 px-4 py-2 rounded-md shadow-sm hover:bg-gray-600 bg-gray-500 hover:border-black border-gray-400 border px-4 inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">Cancelar</button>
-                            <button type="submit"
-                                class="ml-4 bg-green-300 rounded-md shadow-sm hover:bg-green-400 hover:border-green-600 border-gray-400 border px-4 inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">Guardar</button>
-                        </div>
-                    </form>
-                    <button @click="closeCreateModal" class="absolute top-0 right-0 mt-2 mr-2">
-                        <svg class="h-6 w-6 text-green-300 hover:text-green-400" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
+  <!-- MODAL CREATE -->
+  <div v-if="showCreateModal" class="fixed inset-0 z-10 overflow-y-auto">
+    <div class="flex items-center justify-center min-h-screen">
+      <div class="fixed inset-0"></div>
+      <div class="relative bg-gray-400 border-green-500 rounded-lg max-w-lg mx-auto">
+        <!-- Modal content -->
+        <div class="bg-gray-900 rounded-t-md p-2">
+          <h2 class="text-lg text-white font-bold mb-4 ml-2">AÑADIR USUARIO</h2>
         </div>
+        <!-- Formulario para crear un nuevo usuario -->
+
+        <form @submit.prevent="createUser">
+          <div class="bg-gray-300 rounded-b-lg">
+            <!-- Campos del formulario para crear un nuevo usuario -->
+            <div class="mb-4 pt-4 w-5/6 ml-4">
+              <label for="newUserName" class="block text-sm font-medium">Nombre</label>
+              <input type="text" id="newUserName" v-model="newUser.name" class="mt-1 focus:ring-green-500 focus:border-green-400 block w-full shadow-sm sm:text-sm border-green-300 p-2 rounded-md">
+            </div>
+            <div class="mb-4 w-5/6 ml-4">
+              <label for="newUserEmail" class="block text-sm font-medium">Correo
+                electrónico</label>
+              <input type="email" id="newUserEmail" v-model="newUser.email" class="mt-1 focus:ring-green-500 focus:border-green-400 py-2 block w-full shadow-sm sm:text-sm border-green-300 p-2 rounded-md">
+            </div>
+            <div class="mb-4 w-5/6 ml-4">
+              <label for="newUserPass" class="block text-sm font-medium">Contraseña</label>
+              <input type="password" id="newUserPass" v-model="newUser.password" class="mt-1 focus:ring-green-500 focus:border-green-400 block w-full shadow-sm sm:text-sm border-green-300 rounded-md p-2">
+            </div>
+            <!-- Campo de selección para el rol -->
+            <div class="mb-4 w-5/6 ml-4 pb-2">
+              <label for="newUserRole" class="block text-sm font-medium">Rol</label>
+              <select id="newUserRole" v-model="newUser.role" class="mt-1 focus:ring-green-500 focus:border-green-400 block w-full shadow-sm sm:text-sm border-green-300 rounded-md p-2">
+                <option value="admin">Admin</option>
+                <option value="encargado">Encargado</option>
+                <option value="usuario">Usuario</option>
+              </select>
+            </div>
+            <div class="bg-gray-900 p-4 rounded-b-md">
+              <!-- Botones del formulario -->
+              <div class="flex justify-end">
+                <button type="button" @click="closeCreateModal" class="mr-2 px-4 py-2 rounded-md shadow-sm hover:bg-gray-600 bg-gray-500 hover:border-black border-gray-400 border px-4 inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">Cancelar</button>
+                <button type="submit" class="ml-4 bg-green-300 rounded-md shadow-sm hover:bg-green-400 hover:border-green-600 border-gray-400 border px-4 inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm">Guardar</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
     </div>
 
 </template>
@@ -196,30 +179,18 @@ export default {
                 password: '',
                 role: ''
             },
-
+            users: []
         }
     },
-    setup() {
-
-        const users = ref([]);
-
-        const fetchData = async () => {
+    methods: {
+        async fetchData() {
             try {
                 const response = await axios.get(`/api/usuarios`);
-                users.value = response.data;
-                console.log(users.value[0]);
+                this.users = response.data;
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
-        };
-        onMounted(() => {
-            fetchData();
-        });
-        return {
-            users
-        };
-    },
-    methods: {
+        },
         ////////////////////////////////
         //        MODAL UPDATE        //
         ////////////////////////////////
@@ -322,5 +293,8 @@ export default {
                 });
         }
     },
+    mounted() {
+        this.fetchData(); // Llamar fetchData en mounted para obtener los datos al cargar el componente
+    }
 }
 </script>

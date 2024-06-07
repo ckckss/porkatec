@@ -35,29 +35,38 @@ class RoleSeeder extends Seeder
         $permiso_update_nave = Permission::create(['name' => 'update_nave']);
         $permiso_delete_nave = Permission::create(['name' => 'delete_nave']);
 
+        $permiso_create_medicamento = Permission::create(['name' => 'create_medicamento']);
+        $permiso_read_medicamento = Permission::create(['name' => 'read_medicamento']);
+        $permiso_update_medicamento = Permission::create(['name' => 'update_medicamento']);
+        $permiso_delete_medicamento = Permission::create(['name' => 'delete_medicamento']);
+
+
         $permiso_admin_bypass = Permission::create(['name' => 'admin_bypass']);
+        $permiso_usuarios_bypass = Permission::create(['name' => 'usuarios_bypass']);
 
         $permisos_admin = [
             $permiso_create_cerda, $permiso_read_cerda, $permiso_update_cerda, $permiso_delete_cerda,
             $permiso_create_user, $permiso_read_user, $permiso_update_user, $permiso_delete_user,
             $permiso_create_nave, $permiso_read_nave, $permiso_update_nave, $permiso_delete_nave,
-            $permiso_admin_bypass
+            $permiso_create_medicamento, $permiso_read_medicamento, $permiso_update_medicamento, $permiso_delete_medicamento,
+            $permiso_admin_bypass, $permiso_usuarios_bypass
         ];
 
         $permisos_encargado = [
             $permiso_create_cerda, $permiso_read_cerda, $permiso_update_cerda,
             $permiso_create_user, $permiso_read_user, $permiso_update_user,
             $permiso_create_nave, $permiso_read_nave, $permiso_update_nave,
+            $permiso_create_medicamento, $permiso_read_medicamento, $permiso_update_medicamento,
+            $permiso_usuarios_bypass
         ];
 
         $permisos_usuario = [
             $permiso_create_cerda, $permiso_read_cerda, $permiso_update_cerda,
-            $permiso_read_nave,
+            $permiso_read_nave, $permiso_create_nave
         ];
 
         $rol_admin->syncPermissions($permisos_admin);
         $rol_encargado->syncPermissions($permisos_encargado);
         $rol_usuario->syncPermissions($permisos_usuario);
-
     }
 }
